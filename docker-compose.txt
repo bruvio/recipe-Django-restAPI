@@ -1,0 +1,4 @@
+# docker-compose commands
+
+
+docker-compose run web sh -c "django-admin startproject recipes ."
