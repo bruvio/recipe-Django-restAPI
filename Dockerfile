@@ -10,17 +10,20 @@ ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
+
+
+
+COPY ./requirements.txt /requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
 RUN mkdir /code
 WORKDIR /code
-
-
-COPY ./requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY . /code/
 
 RUN adduser -D user
 USER user
 
 
 
-COPY . /code/
-ENTRYPOINT [ "./run.sh" ]
+# ENTRYPOINT [ "./run.sh" ]
