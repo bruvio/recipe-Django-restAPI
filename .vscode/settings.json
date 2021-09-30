@@ -1,9 +1,9 @@
 
 
 {
-    "python.pythonPath": "$ENVIRONMENT_IF_NOT_SET/bin/python",
-    "python.formatting.blackPath": "$ENVIRONMENT_IF_NOT_SET/bin/black",
-    "python.defaultInterpreterPath": "$ENVIRONMENT_IF_NOT_SET/bin/python",
+    "python.pythonPath": ".venv/bin/python",
+    "python.formatting.blackPath": ".venv/bin/black",
+    "python.defaultInterpreterPath": ".venv/bin/python",
     "python.terminal.activateEnvironment": true,
     "editor.formatOnType": true,
     "git.confirmSync": false,
@@ -59,7 +59,7 @@
         "name": "Python: Current File",
         "type": "python",
         "request": "launch",
-        "program": "${file}",
+        "program": "",
         "console": "integratedTerminal"
       }
     ]
