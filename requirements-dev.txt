@@ -1,0 +1,9 @@
+rope
+isort
+pytest
+pre-commit
+flake8
+ipykernel
+lice
+pep8-naming
+python-decouple

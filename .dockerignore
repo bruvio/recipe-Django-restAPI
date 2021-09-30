@@ -1,0 +1,17 @@
+.git/
+.idea/
+.cache
+**/.git
+**/.github/
+.idea/
+.cache
+**/.env3.8/
+__pycache__
+.pytest_cache/
+orphan_branch.sh
+pipeline
+workspace.code-workspace
+requirements-dev.txt
+src/__pycache__
+.ipynb_checkpoints/
+.github/

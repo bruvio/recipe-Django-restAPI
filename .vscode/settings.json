@@ -1,0 +1,140 @@
+
+
+{
+    "python.pythonPath": "$ENVIRONMENT_IF_NOT_SET/bin/python",
+    "python.formatting.blackPath": "$ENVIRONMENT_IF_NOT_SET/bin/black",
+    "python.defaultInterpreterPath": "$ENVIRONMENT_IF_NOT_SET/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "editor.formatOnType": true,
+    "git.confirmSync": false,
+    "editor.formatOnSave": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.renderSideBySide": false,
+    "jupyter.sendSelectionToInteractiveWindow": true,
+    "jupyter.interactiveWindowMode": "perFile",
+    "jupyter.askForKernelRestart": false,
+    "aws.profile": "profile:default",
+    "workbench.colorTheme": "Monokai Pro",
+    "files.autoSave": "onFocusChange",
+    "editor.wordWrap": "wordWrapColumn",
+    "html.format.enable": true,
+    "html.format.contentUnformatted": "",
+    "todohighlight.isCaseSensitive": true,
+    "[sql]": {
+        "editor.formatOnSave": false
+    },
+    "files.trimTrailingWhitespace": true,
+    "python.analysis.extraPaths": [
+        "src"
+    ],
+    "python.sortImports.args": [
+        "-sp isort.cfg",
+        "--float-to-top"
+    ],
+    "python.formatting.provider": "black",
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "window.zoomLevel": 0,
+    "python.testing.pytestEnabled": true,
+    "workbench.sideBar.location": "right",
+    "editor.autoIndent": "advanced",
+    "[yaml]": {
+
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.autoIndent": "keep",
+      "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+      }
+    },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: Current File",
+        "type": "python",
+        "request": "launch",
+        "program": "${file}",
+        "console": "integratedTerminal"
+      }
+    ]
+  },
+  "todohighlight.keywords": [
+    {
+        "text": "todo:",
+        "color": "#333",
+        "backgroundColor": "#2ecc71",
+        "overviewRulerColor": "DarkKhaki",
+        "border": "1px solid DarkKhaki",
+        "borderRadius": "3px",
+        "isWholeLine": false
+    },
+    {
+        "text": "note:",
+        "color": "#000000",
+        "backgroundColor": "#72824E",
+        "overviewRulerColor": "#72824E",
+        "border": "1px solid #72824E",
+        "borderRadius": "3px",
+        "isWholeLine": false
+    },
+    {
+        "text": "System.debug",
+        "color": "#000000",
+        "backgroundColor": "STEELBLUE",
+        "overviewRulerColor": "STEELBLUE",
+        "border": "1px solid STEELBLUE",
+        "borderRadius": "3px",
+        "isWholeLine": false
+    },
+    {
+        "text": "system.debug",
+        "color": "#000000",
+        "backgroundColor": "STEELBLUE",
+        "overviewRulerColor": "STEELBLUE",
+        "border": "1px solid STEELBLUE",
+        "borderRadius": "3px",
+        "isWholeLine": false
+    },
+    {
+        "text": "console.log",
+        "color": "#000000",
+        "backgroundColor": "STEELBLUE",
+        "overviewRulerColor": "STEELBLUE",
+        "border": "1px solid STEELBLUE",
+        "borderRadius": "3px",
+        "isWholeLine": false
+    },
+    {
+        "text": "|DEBUG|",
+        "color": "#000000",
+        "backgroundColor": "#72848A",
+        "overviewRulerColor": "#72848A",
+        "border": "1px solid #72848A",
+        "borderRadius": "3px",
+        "isWholeLine": true
+    },
+    {
+        "text": "attention:",
+        "color": "white",
+        "backgroundColor": "red",
+        "border": "1px solid red",
+        "borderRadius": "3px",
+        "isWholeLine": false
+    },
+    {
+        "text": "debug:",
+        "color": "white",
+        "backgroundColor": "red",
+        "border": "1px solid red",
+        "borderRadius": "3px",
+        "isWholeLine": false
+    }
+]
+
+}
