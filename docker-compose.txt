@@ -2,3 +2,5 @@
 
 
 docker-compose run web sh -c "django-admin startproject recipes ."
+
+docker-compose run web sh -c "python manage.py test tests/"
