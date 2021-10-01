@@ -15,7 +15,7 @@ admin_password = config("ADMIN_PASSWORD")
 class Command(BaseCommand):
     def handle(self, *args, **options):
         if not User.objects.filter(email=admin_email).exists():
-            User.objects.create_user(
-                email=admin_email, password=admin_password, is_staff=True, name=admin
+            User.objects.create_superuser(
+                email=admin_email, password=admin_password, name=admin
             )
             self.stdout.write(self.style.SUCCESS("Successfully created superuser"))
