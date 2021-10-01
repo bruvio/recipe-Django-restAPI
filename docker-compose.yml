@@ -28,7 +28,7 @@ services:
     #   - db
     # env_file: .env
     environment:
-      - SYSTEM_ENV=PRODUCTION
+      - SYSTEM_ENV=GITHUB_WORKFLOW
 
     command: ./run.sh
 # volumes:
