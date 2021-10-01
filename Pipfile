@@ -6,6 +6,12 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
+pytest-django = "*"
+pytest-sugar = "*"
+pytest-cov = "*"
+pytest-flake8 = "*"
+python-decouple = "*"
+flake8 = "*"
 
 [dev-packages]
 rope = "*"
@@ -16,7 +22,6 @@ flake8 = "*"
 ipykernel = "*"
 lice = "*"
 pep8-naming = "*"
-python-decouple = "*"
 black = "*"
 
 [requires]
