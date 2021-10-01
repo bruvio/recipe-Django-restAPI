@@ -1,18 +1,2 @@
-# pyproject_template
-
-
-simple repository useful for setting up a new python project
-
-it contains basic VScode settings
-
-pre-commit hooks
-
-github runners (for testing and for building a docker image)
-
-once you clone the repo run
-
-```
-project_setup.sh
-```
-
-and you will be prompted with the Python version to be used to create a virtual enviroment and you are ready to go
+[![GITHUB docker-compose-actions-workflow](https://github.com/bruvio/recipe-Django-restAPI/actions/workflows/dockercompose.yml/badge.svg)](https://github.com/bruvio/recipe-Django-restAPI/actions/workflows/dockercompose.yml)
+[![TRAVIS CI Status](https://app.travis-ci.com/bruvio/recipe-Django-restAPI.svg?token=aGCK7s9qC7wtjvVs4xb5&branch=main)](https://app.travis-ci.com/bruvio/recipe-Django-restAPI)
