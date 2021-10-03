@@ -77,6 +77,7 @@ WSGI_APPLICATION = "recipes.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 if SYSTEM_ENV == "PRODUCTION" or SYSTEM_ENV == "STAGING":
+    print(SYSTEM_ENV)
     DEBUG = False
     SECRET_KEY = config("SECRET_KEY")
     DATABASES = {
@@ -92,6 +93,7 @@ if SYSTEM_ENV == "PRODUCTION" or SYSTEM_ENV == "STAGING":
 
 
 elif SYSTEM_ENV == "GITHUB_WORKFLOW":
+    print(SYSTEM_ENV)
     DEBUG = True
     SECRET_KEY = "TESTING_KEY"
     DATABASES = {
@@ -107,6 +109,7 @@ elif SYSTEM_ENV == "GITHUB_WORKFLOW":
 
 
 elif SYSTEM_ENV == "DEVELOPMENT":
+    print(SYSTEM_ENV)
     DEBUG = True
     SECRET_KEY = "DEVELOP_KEY"
     DATABASES = {
@@ -121,6 +124,7 @@ elif SYSTEM_ENV == "DEVELOPMENT":
     }
 
 elif SYSTEM_ENV == "NOPOSTGRES":
+    print(SYSTEM_ENV)
     DEBUG = True
     SECRET_KEY = config("SECRET_KEY")
     DATABASES = {
