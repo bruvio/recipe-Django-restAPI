@@ -3,6 +3,16 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:12.3-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+        options: --mount type=tmpfs,destination=/var/lib/postgresql/data --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       -
         name: Login to Docker Hub
@@ -11,10 +21,16 @@ jobs:
           username: ${{ secrets.DOCKERUSER }}
           password: ${{ secrets.DOCKERPASSWORD }}
       - uses: actions/checkout@v2
+      - name: psycopg2 prerequisites
+        run: sudo apt-get install libpq-dev
       - name: Build the stack
 
         run:  |
           docker-compose run web sh -c "python manage.py makemigrations"
           docker-compose run web sh -c "pytest && flake8"
-      # - name: Test
-      #   run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+        env:
+            SYSTEM_ENV: GITHUB_WORKFLOW
+            DJANGO_SETTINGS_MODULE: core.settings
+            ADMIN: ${{ secrets.ADMIN }}
+            ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+            ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}

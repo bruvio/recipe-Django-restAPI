@@ -96,20 +96,14 @@ elif SYSTEM_ENV == "GITHUB_WORKFLOW":
     SECRET_KEY = "TESTING_KEY"
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": "github_actions",
+            "USER": "postgres",
+            "PASSWORD": "postgres",
+            "HOST": "127.0.0.1",
+            "PORT": "5432",
         }
     }
-    # DATABASES = {
-    #     "default": {
-    #         "ENGINE": "django.db.backends.postgresql_psycopg2",
-    #         "NAME": "github_actions",
-    #         "USER": "postgres",
-    #         "PASSWORD": "postgres",
-    #         "HOST": "127.0.0.1",
-    #         "PORT": "5432",
-    #     }
-    # }
 
 
 elif SYSTEM_ENV == "DEVELOPMENT":
