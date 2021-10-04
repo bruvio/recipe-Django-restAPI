@@ -30,7 +30,11 @@ def test_create_user_success(client):
 
 def test_user_exists(client):
     """Test creating a user that already exists fails"""
-    payload = {"email": "test@test.com", "password": "testpass"}
+    payload = {
+        "email": "test@test.com",
+        "password": "pw",
+        "name": "name",
+    }
     create_user(**payload)
     res = client.post(CREATE_USER_URL, payload)
 
@@ -39,7 +43,11 @@ def test_user_exists(client):
 
 def test_password_too_short(client):
     """Test that password must be more than 5 characters"""
-    payload = {"email": "test@test.com", "password": "pw"}
+    payload = {
+        "email": "test@test.com",
+        "password": "pw",
+        "name": "name",
+    }
     res = client.post(CREATE_USER_URL, payload)
 
     assert res.status_code == status.HTTP_400_BAD_REQUEST
