@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-SYSTEM_ENV = os.environ.get("SYSTEM_ENV")
+SYSTEM_ENV = config("SYSTEM_ENV")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = [
@@ -76,13 +76,13 @@ WSGI_APPLICATION = "recipes.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if SYSTEM_ENV == "DOCKER":
+if SYSTEM_ENV == "PRODUCTION":
     print(SYSTEM_ENV)
     DEBUG = True
     SECRET_KEY = os.environ.get("SECRET_KEY")
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
             "HOST": os.environ.get("DB_HOST"),
             "NAME": os.environ.get("DB_NAME"),
             "USER": os.environ.get("DB_USER"),
@@ -90,20 +90,20 @@ if SYSTEM_ENV == "DOCKER":
         }
     }
 
-elif SYSTEM_ENV == "GITHUB_WORKFLOW":
-    print(SYSTEM_ENV)
-    DEBUG = True
-    SECRET_KEY = "TESTING_KEY"
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": "github_actions",
-            "USER": "postgres",
-            "PASSWORD": "postgres",
-            "HOST": "127.0.0.1",
-            "PORT": "5432",
-        }
-    }
+# elif SYSTEM_ENV == "GITHUB_WORKFLOW":
+#     print(SYSTEM_ENV)
+#     DEBUG = True
+#     SECRET_KEY = "TESTING_KEY"
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql_psycopg2",
+#             "NAME": "github_actions",
+#             "USER": "postgres",
+#             "PASSWORD": "postgres",
+#             "HOST": "127.0.0.1",
+#             "PORT": "5432",
+#         }
+#     }
 
 
 elif SYSTEM_ENV == "DEVELOPMENT":
@@ -116,7 +116,7 @@ elif SYSTEM_ENV == "DEVELOPMENT":
             "NAME": config("DB_NAME"),
             "USER": config("POSTGRES_LOCAL_USER"),
             "PASSWORD": config("POSTGRES_LOCAL_PASSWORD"),
-            "HOST": "localhost",
+            "HOST": config("DB_HOST"),
             "PORT": "5432",
         }
     }

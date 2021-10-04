@@ -9,7 +9,7 @@ services:
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=supersecretpassword
+      - POSTGRES_PASSWORD=postgres
   web:
     restart: always
     build:
@@ -25,7 +25,9 @@ services:
       - DB_HOST=db
       - DB_NAME=app
       - DB_USER=postgres
-      - DB_PASS=supersecretpassword
+      - DB_PASS=postgres
+      - SYSTEM_ENV=PRODUCTION
+      - SECRET_KEY=SECRET_KEY
     command: ./run.sh
 volumes:
   postgres_data:

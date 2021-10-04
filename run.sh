@@ -1,4 +1,5 @@
 #!/bin/bash
+python manage.py wait_for_db
 python3 manage.py makemigrations core
 python3 manage.py migrate
 python3 manage.py createsu
