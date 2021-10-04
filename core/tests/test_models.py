@@ -45,3 +45,10 @@ def test_tag_str():
     tag = models.Tag.objects.create(user=sample_user(), name="Vegan")
 
     assert str(tag) == tag.name
+
+
+def test_ingredient_str():
+    """Test the ingredient string representation"""
+    ingredient = models.Ingredient.objects.create(user=sample_user(), name="Fennel")
+
+    assert str(ingredient) == ingredient.name
