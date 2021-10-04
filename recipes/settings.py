@@ -90,20 +90,20 @@ if SYSTEM_ENV == "PRODUCTION":
         }
     }
 
-# elif SYSTEM_ENV == "GITHUB_WORKFLOW":
-#     print(SYSTEM_ENV)
-#     DEBUG = True
-#     SECRET_KEY = "TESTING_KEY"
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.postgresql_psycopg2",
-#             "NAME": "github_actions",
-#             "USER": "postgres",
-#             "PASSWORD": "postgres",
-#             "HOST": "127.0.0.1",
-#             "PORT": "5432",
-#         }
-#     }
+elif SYSTEM_ENV == "GITHUB_WORKFLOW":
+    print(SYSTEM_ENV)
+    DEBUG = True
+    SECRET_KEY = "TESTING_KEY"
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": "github_actions",
+            "USER": "postgres",
+            "PASSWORD": "postgres",
+            "HOST": "127.0.0.1",
+            "PORT": "5432",
+        }
+    }
 
 
 elif SYSTEM_ENV == "DEVELOPMENT":
