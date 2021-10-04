@@ -7,13 +7,9 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=$DB_NAME
-      - POSTGRES_USER=$POSTGRES_LOCAL_USER
-      - POSTGRES_PASSWORD=$POSTGRES_LOCAL_PASSWORD
-    env_file:
-      - ./.env
-    # ports:
-    #   - "5432:5432"
+      - POSTGRES_DB=app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=supersecretpassword
   web:
     restart: always
     build:
@@ -25,8 +21,11 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    env_file: .env
-
+    environment:
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=postgres
+      - DB_PASS=supersecretpassword
     command: ./run.sh
 volumes:
   postgres_data:

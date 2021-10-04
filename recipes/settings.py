@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-SYSTEM_ENV = config("SYSTEM_ENV")
+SYSTEM_ENV = os.environ.get("SYSTEM_ENV")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = [
@@ -76,21 +76,19 @@ WSGI_APPLICATION = "recipes.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if SYSTEM_ENV == "PRODUCTION" or SYSTEM_ENV == "STAGING":
+if SYSTEM_ENV == "DOCKER":
     print(SYSTEM_ENV)
-    DEBUG = False
-    SECRET_KEY = config("SECRET_KEY")
+    DEBUG = True
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": config("DB_NAME"),
-            "USER": config("POSTGRES_LOCAL_USER"),
-            "PASSWORD": config("POSTGRES_LOCAL_PASSWORD"),
-            "HOST": "db",
-            "PORT": 5432,
+            "ENGINE": "django.db.backends.postgresql",
+            "HOST": os.environ.get("DB_HOST"),
+            "NAME": os.environ.get("DB_NAME"),
+            "USER": os.environ.get("DB_USER"),
+            "PASSWORD": os.environ.get("DB_PASS"),
         }
     }
-
 
 elif SYSTEM_ENV == "GITHUB_WORKFLOW":
     print(SYSTEM_ENV)
