@@ -11,7 +11,7 @@ ME_URL = reverse("user:me")
 pytestmark = pytest.mark.django_db
 
 
-def test_retrieve_profile_succlientcess(authenticated_user):
+def test_retrieve_profile_success(authenticated_user):
     user, client = authenticated_user
     """Test retrieving profile for logged in user"""
     res = client.get(ME_URL)
