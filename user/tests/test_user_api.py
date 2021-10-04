@@ -4,6 +4,7 @@ from django.urls import reverse
 from rest_framework import status
 
 CREATE_USER_URL = reverse("user:create")
+TOKEN_URL = reverse("user:token")
 
 pytestmark = pytest.mark.django_db
 
@@ -53,3 +54,39 @@ def test_password_too_short(client):
     assert res.status_code == status.HTTP_400_BAD_REQUEST
     user_exists = get_user_model().objects.filter(email=payload["email"]).exists()
     assert not user_exists
+
+
+def test_create_token_for_user(client):
+    """Test that a token is created for the user"""
+    payload = {"email": "test@londonappdev.com", "password": "testpass"}
+    create_user(**payload)
+    res = client.post(TOKEN_URL, payload)
+
+    assert "token" in res.data
+    assert res.status_code == status.HTTP_200_OK
+
+
+def test_create_token_invalid_credentials(client):
+    """Test that token is not created if invalid credentials are given"""
+    create_user(email="test@londonappdev.com", password="testpass")
+    payload = {"email": "test@londonappdev.com", "password": "wrong"}
+    res = client.post(TOKEN_URL, payload)
+
+    assert "token" not in res.data
+    assert res.status_code == status.HTTP_400_BAD_REQUEST
+
+
+def test_create_token_no_user(client):
+    """Test that token is not created if user doens't exist"""
+    payload = {"email": "test@londonappdev.com", "password": "testpass"}
+    res = client.post(TOKEN_URL, payload)
+
+    assert "token" not in res.data
+    assert res.status_code == status.HTTP_400_BAD_REQUEST
+
+
+def test_create_token_missing_field(client):
+    """Test that email and password are required"""
+    res = client.post(TOKEN_URL, {"email": "one", "password": ""})
+    assert "token" not in res.data
+    assert res.status_code == status.HTTP_400_BAD_REQUEST
