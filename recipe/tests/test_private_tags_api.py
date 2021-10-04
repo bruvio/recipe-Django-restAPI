@@ -39,3 +39,22 @@ def test_tags_limited_to_user(authenticated_user):
     assert res.status_code == status.HTTP_200_OK
     assert len(res.data) == 1
     assert res.data[0]["name"] == tag.name
+
+
+def test_create_tag_successful(authenticated_user):
+    """Test creating a new tag"""
+    user, client = authenticated_user
+    payload = {"name": "Simple"}
+    client.post(TAGS_URL, payload)
+
+    exists = Tag.objects.filter(user=user, name=payload["name"]).exists()
+    assert exists
+
+
+def test_create_tag_invalid(authenticated_user):
+    """Test creating a new tag with invalid payload"""
+    _, client = authenticated_user
+    payload = {"name": ""}
+    res = client.post(TAGS_URL, payload)
+
+    assert res.status_code == status.HTTP_400_BAD_REQUEST
