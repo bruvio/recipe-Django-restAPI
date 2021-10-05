@@ -181,3 +181,8 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DJANGO_SETTINGS_MODULE = "recipes.settings"
 AUTH_USER_MODEL = "core.User"
+
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "/vol/web/media"
+STATIC_ROOT = "/vol/web/static"

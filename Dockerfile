@@ -24,3 +24,9 @@ RUN apt-get autoremove -y gcc
 EXPOSE 8000
 COPY . /code/
 # ENTRYPOINT [ "./run.sh" ]
+RUN mkdir -p /vol/web/media
+RUN mkdir -p /vol/web/static
+RUN adduser user
+RUN chown -R user:user /vol/
+RUN chmod -R 755 /vol/web
+USER user
