@@ -23,7 +23,8 @@ def recipe_image_file_path(instance, filename):
     :rtype: [type]
     """
     ext = filename.split(".")[-1]
-    filename = f"{uuid.uuid4}.{ext}"
+    filename = f"{uuid.uuid4()}.{ext}"
+    print(filename)
 
     return os.path.join("uploads/recipe/", filename)
 
