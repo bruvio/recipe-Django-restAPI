@@ -173,8 +173,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "/static/"
-
+# STATIC_URL = "/static/"
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = "/vol/web/media"
+# STATIC_ROOT = "/vol/web/static"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -183,6 +185,8 @@ DJANGO_SETTINGS_MODULE = "recipes.settings"
 AUTH_USER_MODEL = "core.User"
 
 
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "static"
+
 MEDIA_URL = "/media/"
-MEDIA_ROOT = "/vol/web/media"
-STATIC_ROOT = "/vol/web/static"
+MEDIA_ROOT = BASE_DIR / "media"
