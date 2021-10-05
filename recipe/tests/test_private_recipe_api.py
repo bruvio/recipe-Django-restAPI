@@ -226,3 +226,45 @@ def test_upload_image_bad_request(authenticated_user):
 
     assert res.status_code, status.HTTP_400_BAD_REQUEST
     recipe.image.delete()
+
+
+def test_filter_recipes_by_tags(authenticated_user):
+    """Test returning recipes with specific tags"""
+    user, client = authenticated_user
+    recipe1 = sample_recipe(user=user, title="pizza margherita")
+    recipe2 = sample_recipe(user=user, title="pizza al samone")
+    tag1 = sample_tag(user=user, name="Vegetarian")
+    tag2 = sample_tag(user=user, name="Normal")
+    recipe1.tags.add(tag1)
+    recipe2.tags.add(tag2)
+    recipe3 = sample_recipe(user=user, title="Costardelle")
+
+    res = client.get(RECIPES_URL, {"tags": f"{tag1.id},{tag2.id}"})
+
+    serializer1 = RecipeSerializer(recipe1)
+    serializer2 = RecipeSerializer(recipe2)
+    serializer3 = RecipeSerializer(recipe3)
+    assert serializer1.data in res.data
+    assert serializer2.data in res.data
+    assert serializer3.data not in res.data
+
+
+def test_filter_recipes_by_ingredients(authenticated_user):
+    """Test returning recipes with specific ingredients"""
+    user, client = authenticated_user
+    recipe1 = sample_recipe(user=user, title="Polpette")
+    recipe2 = sample_recipe(user=user, title="Spigola")
+    ingredient1 = sample_ingredient(user=user, name="carne")
+    ingredient2 = sample_ingredient(user=user, name="spigola")
+    recipe1.ingredients.add(ingredient1)
+    recipe2.ingredients.add(ingredient2)
+    recipe3 = sample_recipe(user=user, title="filetto")
+
+    res = client.get(RECIPES_URL, {"ingredients": f"{ingredient1.id},{ingredient2.id}"})
+
+    serializer1 = RecipeSerializer(recipe1)
+    serializer2 = RecipeSerializer(recipe2)
+    serializer3 = RecipeSerializer(recipe3)
+    assert serializer1.data in res.data
+    assert serializer2.data in res.data
+    assert serializer3.data not in res.data
