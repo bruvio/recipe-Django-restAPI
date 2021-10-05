@@ -17,7 +17,6 @@ def test_retrieve_ingredient_success(authenticated_user):
     Ingredient.objects.create(user=user, name="lettuce")
 
     res = client.get(INGREDIENTS_URL)
-    print(res.status_code)
 
     ingredients = Ingredient.objects.all().order_by("-name")
     serializer = IngredientSerializer(ingredients, many=True)
