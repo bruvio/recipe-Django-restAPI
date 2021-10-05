@@ -20,7 +20,7 @@ def image_upload_url(recipe_id):
     :param recipe_id: [description]
     :type recipe_id: [type]
     """
-    return reverse("recipe:recipe-upload-image", args=recipe_id)
+    return reverse("recipe:recipe-upload-image", args=[recipe_id])
 
 
 def sample_recipe(user, **params):
