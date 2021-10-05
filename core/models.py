@@ -5,6 +5,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
+from django.db.models.deletion import CASCADE
 
 
 class UserManager(BaseUserManager):
@@ -64,3 +65,22 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Recipe(models.Model):
+    """recipe model
+
+    :param models: [description]
+    :type models: [type]
+    """
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=CASCADE)
+    title = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    time_minutes = models.IntegerField()
+    link = models.CharField(max_length=255, blank=True)
+    ingredient = models.ManyToManyField("Ingredient")
+    tags = models.ManyToManyField("Tag")
+
+    def __str__(self):
+        return self.title

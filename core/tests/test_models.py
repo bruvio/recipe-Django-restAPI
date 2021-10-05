@@ -52,3 +52,12 @@ def test_ingredient_str():
     ingredient = models.Ingredient.objects.create(user=sample_user(), name="Fennel")
 
     assert str(ingredient) == ingredient.name
+
+
+def test_recipe_str():
+    """Test the recipe string representation"""
+    recipe = models.Recipe.objects.create(
+        user=sample_user(), title="pizza", time_minutes=240, price=10.0
+    )
+
+    assert str(recipe) == recipe.title
