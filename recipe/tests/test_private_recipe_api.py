@@ -149,3 +149,39 @@ def test_create_recipe_with_ingredient(authenticated_user):
     assert ingredients.count() == 2
     assert ingredient1 in ingredients
     assert ingredient2 in ingredients
+
+
+def test_partial_update_recipe(authenticated_user):
+    """Test updating a recipe with patch"""
+    user, client = authenticated_user
+    recipe = sample_recipe(user=user)
+    recipe.tags.add(sample_tag(user=user))
+    new_tag = sample_tag(user=user, name="Curry")
+
+    payload = {"title": "Chicken tikka", "tags": [new_tag.id]}
+    url = detail_url(recipe.id)
+    client.patch(url, payload)
+
+    recipe.refresh_from_db()
+    assert recipe.title == payload["title"]
+    tags = recipe.tags.all()
+    assert len(tags) == 1
+    assert new_tag in tags
+
+
+def test_full_update_recipe(authenticated_user):
+    """Test updating a recipe with put"""
+    user, client = authenticated_user
+    recipe = sample_recipe(user=user)
+    recipe.tags.add(sample_tag(user=user))
+
+    payload = {"title": "Spaghetti carbonara", "time_minutes": 25, "price": 5.00}
+    url = detail_url(recipe.id)
+    client.put(url, payload)
+
+    recipe.refresh_from_db()
+    assert recipe.title == payload["title"]
+    assert recipe.time_minutes == payload["time_minutes"]
+    assert recipe.price == payload["price"]
+    tags = recipe.tags.all()
+    assert len(tags) == 0
