@@ -37,11 +37,6 @@ class IngredientViewSet(BaseRecipeAttrViewSet):
     serializer_class = serializers.IngredientSerializer
 
 
-# class RecipeViewSet(BaseRecipeAttrViewSet):
-#     """Manage recipe in the database"""
-
-#     queryset = Recipe.objects.all()
-#     serializer_class = serializers.RecipeSerializer
 class RecipeViewSet(viewsets.ModelViewSet):
     """Manage recipes in the database"""
 

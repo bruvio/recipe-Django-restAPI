@@ -3,8 +3,8 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
 
-from core.models import Recipe
-from recipe.serializers import RecipeSerializer
+from core.models import Ingredient, Recipe, Tag
+from recipe.serializers import RecipeDetailSerializer, RecipeSerializer
 
 RECIPES_URL = reverse("recipe:recipe-list")
 pytestmark = pytest.mark.django_db
@@ -20,6 +20,21 @@ def sample_recipe(user, **params):
     defaults.update(params)
 
     return Recipe.objects.create(user=user, **defaults)
+
+
+def sample_tag(user, name="Main course"):
+    """Create and return a sample tag"""
+    return Tag.objects.create(user=user, name=name)
+
+
+def sample_ingredient(user, name="Salt"):
+    """Create and return a sample ingredient"""
+    return Ingredient.objects.create(user=user, name=name)
+
+
+def detail_url(recipe_id):
+    """Return recipe detail URL"""
+    return reverse("recipe:recipe-detail", args=[recipe_id])
 
 
 def test_retrieve_recipes(authenticated_user):
@@ -50,4 +65,19 @@ def test_recipes_limited_to_user(authenticated_user):
     serializer = RecipeSerializer(recipes, many=True)
     assert res.status_code == status.HTTP_200_OK
     assert len(res.data) == 1
+    assert res.data == serializer.data
+
+
+def test_view_recipe_detail(authenticated_user):
+
+    """Test viewing a recipe detail"""
+    user, client = authenticated_user
+    recipe = sample_recipe(user=user)
+    recipe.tags.add(sample_tag(user=user))
+    recipe.ingredients.add(sample_ingredient(user=user))
+
+    url = detail_url(recipe.id)
+    res = client.get(url)
+
+    serializer = RecipeDetailSerializer(recipe)
     assert res.data == serializer.data
