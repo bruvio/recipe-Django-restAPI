@@ -1,6 +1,10 @@
+import os
+import tempfile
+
 import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from PIL import Image
 from rest_framework import status
 
 from core.models import Ingredient, Recipe, Tag
@@ -8,6 +12,15 @@ from recipe.serializers import RecipeDetailSerializer, RecipeSerializer
 
 RECIPES_URL = reverse("recipe:recipe-list")
 pytestmark = pytest.mark.django_db
+
+
+def image_upload_url(recipe_id):
+    """return url for recipe image upload
+
+    :param recipe_id: [description]
+    :type recipe_id: [type]
+    """
+    return reverse("recipe:recipe-upload-image", args=recipe_id)
 
 
 def sample_recipe(user, **params):
@@ -185,3 +198,31 @@ def test_full_update_recipe(authenticated_user):
     assert recipe.price == payload["price"]
     tags = recipe.tags.all()
     assert len(tags) == 0
+
+
+def test_image_upload(authenticated_user):
+    user, client = authenticated_user
+    recipe = sample_recipe(user=user)
+    url = image_upload_url(recipe.id)
+    with tempfile.NamedTemporaryFile(suffix=".jpg") as ntf:
+        img = Image.new("RGB", (10, 10))
+        img.save(ntf, format="JPEG")
+        ntf.seek(0)
+        res = client.post(url, {"image": ntf}, format="multipart")
+
+    recipe.refresh_from_db()
+    assert res.status_code == status.HTTP_200_OK
+    assert "image" in res.data
+    assert os.path.exists(recipe.image.path)
+    recipe.image.delete()
+
+
+def test_upload_image_bad_request(authenticated_user):
+    """Test uploading an invalid image"""
+    user, client = authenticated_user
+    recipe = sample_recipe(user=user)
+    url = image_upload_url(recipe.id)
+    res = client.post(url, {"image": "notimage"}, format="multipart")
+
+    assert res.status_code, status.HTTP_400_BAD_REQUEST
+    recipe.image.delete()
