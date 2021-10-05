@@ -31,11 +31,13 @@ def test_ingredients_limited_to_user(authenticated_user):
     user, client = authenticated_user
     user2 = get_user_model().objects.create_user("other@test.com", "testpass")
     Ingredient.objects.create(user=user2, name="banana")
-    Ingredient.objects.create(user=user, name="orange")
+    ingredient = Ingredient.objects.create(user=user, name="orange")
 
     res = client.get(INGREDIENTS_URL)
 
-    assert res.status_code == status.HTTP_assertEqual
+    assert res.status_code == status.HTTP_200_OK
+    assert len(res.data) == 1
+    assert res.data[0]["name"] == ingredient.name
 
 
 def test_create_ingredient_successful(authenticated_user):
@@ -50,7 +52,7 @@ def test_create_ingredient_successful(authenticated_user):
 
 def test_create_ingredient_invalid(authenticated_user):
     """Test creating a new ingredient with invalid payload"""
-    user, client = authenticated_user
+
     _, client = authenticated_user
     payload = {"name": ""}
     res = client.post(INGREDIENTS_URL, payload)
