@@ -15,4 +15,4 @@ requirements-dev.txt
 src/__pycache__
 .ipynb_checkpoints/
 .github/
-/venv
+.env/
